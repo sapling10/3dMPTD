@@ -3,7 +3,7 @@ extends Node
 @export var player: CharacterBody3D
 @export var mesh_root: Node3D
 @export var rotation_speed: float = 8
-@export var fall_gravity = 45
+@export var fall_gravity = 50
 var direction: Vector3
 var velocity: Vector3
 var acceleration: float
@@ -15,12 +15,6 @@ var jump_gravity: float = fall_gravity
 func _physics_process(delta: float):
 	velocity.x = speed * direction.normalized().x
 	velocity.z = speed * direction.normalized().z
-	
-	if not player.is_on_floor():
-		if velocity.y >= 0:
-			velocity.y -= jump_gravity * delta
-		else:
-			velocity.y -= fall_gravity * delta
 	
 	player.velocity = player.velocity.lerp(velocity, acceleration * delta)
 	player.move_and_slide()
