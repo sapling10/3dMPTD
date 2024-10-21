@@ -1,0 +1,78 @@
+[gd_scene load_steps=14 format=3 uid="uid://4rx5munyge6b"]
+
+[ext_resource type="PackedScene" uid="uid://mvhijb3wcq4v" path="res://assets/man_t-pose.fbx" id="1_4720e"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_cj36e"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6qft8"]
+radius = 0.235
+height = 1.75
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eou3s"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xge4v"]
+animation = &"move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lq0ej"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4tirn"]
+advance_mode = 2
+advance_condition = &"move"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4dqme"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_4g83e"]
+states/Start/position = Vector2(209, 95)
+states/idle/node = SubResource("AnimationNodeAnimation_eou3s")
+states/idle/position = Vector2(335, 88)
+states/move/node = SubResource("AnimationNodeAnimation_xge4v")
+states/move/position = Vector2(535, 94)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_lq0ej"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_4tirn"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_4dqme")]
+
+[sub_resource type="Animation" id="Animation_w2pf7"]
+resource_name = "new_animation"
+
+[sub_resource type="Animation" id="Animation_r51iq"]
+resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_chnpr"]
+resource_name = "move"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kbvbh"]
+_data = {
+"idle": SubResource("Animation_r51iq"),
+"move": SubResource("Animation_chnpr"),
+"new_animation": SubResource("Animation_w2pf7")
+}
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("animation_tree", "animation_player")]
+script = ExtResource("1_cj36e")
+animation_tree = NodePath("AnimationTree")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62456, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_6qft8")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="man_t-pose" parent="Visuals" instance=ExtResource("1_4720e")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_4g83e")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/move = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kbvbh")
+}
