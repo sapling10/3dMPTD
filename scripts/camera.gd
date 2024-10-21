@@ -1,33 +1,45 @@
 extends Node3D
 
-@export
-var camera_target: Node3D
-@export
-var pitch_max = 50
-@export
-var pitch_min = -50
+signal set_cam_rotation(_cam_rotation: float)
 
-var yaw = float()
-var pitch = float()
-var yaw_sensitivity = 0.002
-var pitch_sensitivity = 0.002
+@onready var cam_yaw: Node3D = $CamYaw
+@onready var cam_pitch: Node3D = $CamYaw/CamPitch
+@onready var camera: Camera3D = $CamYaw/CamPitch/SpringArm3D/Camera3D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+var yaw: float = 0
+var pitch: float = 0
+
+var yaw_sensitivity: float = 0.07
+var pitch_sensitivity: float = 0.07
+
+var yaw_acceleration: float = 15
+var pitch_acceleration: float = 15
+
+var pitch_max: float = 60
+var pitch_min: float = -80
+
+var tween: Tween
+
+func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-func _input(event):
-	if event is InputEventMouseMotion and Input.get_mouse_mode() != 0:
+func _input(event: InputEvent):
+	if event is InputEventMouseMotion:
 		yaw += -event.relative.x * yaw_sensitivity
-		pitch += event.relative.y * pitch_sensitivity
-
+		pitch += -event.relative.y * pitch_sensitivity
+		
 func _physics_process(delta: float):
-	camera_target.rotation.y = lerpf(camera_target.rotation.y, yaw, delta * 10)
-	camera_target.rotation.x = lerpf(camera_target.rotation.x, pitch, delta * 10)
+	pitch = clamp(pitch, pitch_min, pitch_max)
+	#cam_yaw.rotation_degrees.y = lerp(cam_yaw.rotation_degrees.y, yaw, yaw_acceleration * delta)
+	#cam_pitch.rotation_degrees.x = lerp(cam_pitch.rotation_degrees.x, pitch, pitch_acceleration * delta)
+	cam_yaw.rotation_degrees.y = yaw
+	cam_pitch.rotation_degrees.x = pitch
 	
-	pitch = clamp(pitch, deg_to_rad(pitch_min), deg_to_rad(pitch_max))
+	set_cam_rotation.emit(cam_yaw.rotation.y)
 	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_set_movement_state(_movement_state: MovementState):
+	if tween:
+		tween.kill()
+	
+	tween = create_tween()
+	tween.tween_property(camera, "fov", _movement_state.camera_fov, 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)

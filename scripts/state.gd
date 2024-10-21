@@ -11,7 +11,7 @@ var fall_gravity:                 float = 25.0
 var jump_gravity:                 float = 5.0
 var terminal_velocity:            float = -60.0
 
-var parent: Player
+#var parent: Player
 
 func enter() -> void:
 	pass
