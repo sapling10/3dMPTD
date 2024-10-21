@@ -2,8 +2,10 @@ extends CharacterBody3D
 
 signal set_movement_state(_movement_state: MovementState)
 signal set_movement_direction(_movement_direction: Vector3)
+signal pressed_jump(jump_state: JumpState)
 
-@export var movement_state: Dictionary
+@export var movement_states: Dictionary
+@export var jump_states: Dictionary
 
 var movement_direction: Vector3
 
@@ -14,14 +16,18 @@ func _input(event: InputEvent):
 	
 		if is_movement_ongoing():
 			if Input.is_action_pressed("sprint"):
-				set_movement_state.emit(movement_state["run"])
+				set_movement_state.emit(movement_states["run"])
 			else:
-				set_movement_state.emit(movement_state["walk"])
+				set_movement_state.emit(movement_states["walk"])
 		else:
-			set_movement_state.emit(movement_state["idle"])
+			set_movement_state.emit(movement_states["idle"])
+			
+	if event.is_action("jump") and is_on_floor():
+		var jump_name = "groundjump"
+		pressed_jump.emit(jump_states[jump_name])
 
 func _ready():
-	set_movement_state.emit(movement_state["idle"])
+	set_movement_state.emit(movement_states["idle"])
 
 func _physics_process(delta: float):
 	if is_movement_ongoing():

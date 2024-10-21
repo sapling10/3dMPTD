@@ -5,6 +5,9 @@ extends Node
 
 var tween: Tween
 
+func _jump(jump_state: JumpState):
+	animation_tree["parameters/" + jump_state.animation_name + "/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
+
 func _on_set_movement_state(_movement_state: MovementState):
 	if tween:
 		tween.kill()
