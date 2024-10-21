@@ -3,7 +3,16 @@ extends Node
 @export var animation_tree: AnimationTree
 @export var player: CharacterBody3D
 
+var on_floor_blend: float = 1
+var on_floor_blend_target: float = 1
+
 var tween: Tween
+
+func _physics_process(delta: float):
+	# unsure if functions due to animations being so similar
+	on_floor_blend_target = 1 if player.is_on_floor() else 0
+	on_floor_blend = lerp(on_floor_blend, on_floor_blend_target, 10 * delta)
+	animation_tree["parameters/on_floor_blend/blend_amount"] = on_floor_blend
 
 func _jump(jump_state: JumpState):
 	animation_tree["parameters/" + jump_state.animation_name + "/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE

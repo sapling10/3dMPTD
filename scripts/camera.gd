@@ -1,10 +1,13 @@
 extends Node3D
+class_name CameraController
 
 signal set_cam_rotation(_cam_rotation: float)
 
+@export var player: Player
 @onready var cam_yaw: Node3D = $CamYaw
 @onready var cam_pitch: Node3D = $CamYaw/CamPitch
 @onready var camera: Camera3D = $CamYaw/CamPitch/SpringArm3D/Camera3D
+@onready var spring_arm: SpringArm3D = $CamYaw/CamPitch/SpringArm3D
 
 var yaw: float = 0
 var pitch: float = 0
@@ -22,18 +25,20 @@ var tween: Tween
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#spring_arm.add_excluded_object(player.get_rid())
+	#top_level = true
 
 func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		yaw += -event.relative.x * yaw_sensitivity
-		pitch += -event.relative.y * pitch_sensitivity
+		pitch += event.relative.y * pitch_sensitivity
 		
 func _physics_process(delta: float):
 	pitch = clamp(pitch, pitch_min, pitch_max)
-	#cam_yaw.rotation_degrees.y = lerp(cam_yaw.rotation_degrees.y, yaw, yaw_acceleration * delta)
-	#cam_pitch.rotation_degrees.x = lerp(cam_pitch.rotation_degrees.x, pitch, pitch_acceleration * delta)
-	cam_yaw.rotation_degrees.y = yaw
-	cam_pitch.rotation_degrees.x = pitch
+	cam_yaw.rotation_degrees.y = lerp(cam_yaw.rotation_degrees.y, yaw, yaw_acceleration * delta)
+	cam_pitch.rotation_degrees.x = lerp(cam_pitch.rotation_degrees.x, pitch, pitch_acceleration * delta)
+	#cam_yaw.rotation_degrees.y = yaw
+	#cam_pitch.rotation_degrees.x = pitch
 	
 	set_cam_rotation.emit(cam_yaw.rotation.y)
 	
