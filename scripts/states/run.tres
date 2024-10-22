@@ -8,4 +8,4 @@ id = 2
 movement_speed = 7.0
 acceleration = 4.0
 camera_fov = 85.0
-animation_speed = 1.0
+animation_speed = 1.4

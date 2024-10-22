@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://cw8lkgg6mh2ts"]
+
+[ext_resource type="Script" path="res://scripts/juicy_bar.gd" id="1_l31ug"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0k8qr"]
+bg_color = Color(0.158472, 0.158472, 0.158472, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dxu16"]
+bg_color = Color(0.760955, 0.557662, 0.176975, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rxdms"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lb5br"]
+bg_color = Color(0, 0.71902, 0.351469, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1uxp4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b7p2i"]
+bg_color = Color(1, 0.109804, 0.129412, 1)
+
+[node name="JuicyBarContainer" type="Control" node_paths=PackedStringArray("top_layer_bar", "middle_layer_bar", "bottom_layer_bar")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l31ug")
+top_layer_bar = NodePath("TopLayer")
+middle_layer_bar = NodePath("MiddleLayer")
+bottom_layer_bar = NodePath("BottomLayer")
+max_val = 100.0
+
+[node name="BottomLayer" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 60.0
+theme_override_styles/background = SubResource("StyleBoxFlat_0k8qr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dxu16")
+max_value = 5000.0
+value = 2500.0
+show_percentage = false
+
+[node name="MiddleLayer" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 60.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_rxdms")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lb5br")
+max_value = 5000.0
+value = 2500.0
+show_percentage = false
+
+[node name="TopLayer" type="ProgressBar" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 420.0
+offset_bottom = 60.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_1uxp4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_b7p2i")
+max_value = 5000.0
+value = 2500.0
+show_percentage = false
