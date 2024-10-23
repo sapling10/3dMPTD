@@ -1,7 +1,5 @@
-- Get a basic asset for the character with the basic animations needed, follow a tutorial for that w/ camera
-- Make a basic level w/ lighting
-
 - Add a few types of weapons. Projectiles (animations prob not required)
-- Add a few enemies, AI will just gradually get better so start stupid
+- dumb enemies, get them to go for the tower(s) and if in range of player go for them
+  up to a certains number
 - Get movement getting better, slide, wall hold, wall jump, wall run...
 - Get ability to create some traps. Turrets?

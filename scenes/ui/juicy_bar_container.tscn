@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cw8lkgg6mh2ts"]
 
-[ext_resource type="Script" path="res://scripts/juicy_bar.gd" id="1_l31ug"]
+[ext_resource type="Script" path="res://scripts/ui/juicy_bar.gd" id="1_wwvmn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0k8qr"]
 bg_color = Color(0.158472, 0.158472, 0.158472, 1)
@@ -21,7 +21,7 @@ bg_color = Color(1, 0.109804, 0.129412, 1)
 [node name="JuicyBarContainer" type="Control" node_paths=PackedStringArray("top_layer_bar", "middle_layer_bar", "bottom_layer_bar")]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_l31ug")
+script = ExtResource("1_wwvmn")
 top_layer_bar = NodePath("TopLayer")
 middle_layer_bar = NodePath("MiddleLayer")
 bottom_layer_bar = NodePath("BottomLayer")

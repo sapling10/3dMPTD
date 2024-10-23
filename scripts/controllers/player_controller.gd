@@ -21,6 +21,9 @@ func _input(event: InputEvent):
 			else:
 				set_movement_state.emit(movement_states["walk"])
 		else:
+			#if Input.is_action_pressed("slide"):
+			#	set_movement_state.emit(movement_states["slide"])
+			#else:
 			set_movement_state.emit(movement_states["idle"])
 			
 	if event.is_action("jump") and is_on_floor():

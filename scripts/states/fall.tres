@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://bhifkuekf5jw8"]
 
-[ext_resource type="Script" path="res://scripts/movement_script.gd" id="1_t5cec"]
+[ext_resource type="Script" path="res://scripts/states/resource_scripts/movement_state_resource.gd" id="1_t5cec"]
 
 [resource]
 script = ExtResource("1_t5cec")

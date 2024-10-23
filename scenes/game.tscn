@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dl61t5773q13v"]
+[gd_scene load_steps=10 format=3 uid="uid://dl61t5773q13v"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_jv1ih"]
-[ext_resource type="PackedScene" uid="uid://cvo1r4we2tjth" path="res://scenes/BattlegroundMap.tscn" id="1_ujv6w"]
+[ext_resource type="PackedScene" uid="uid://cvo1r4we2tjth" path="res://scenes/maps/battleground_map.tscn" id="1_ujv6w"]
 [ext_resource type="Texture2D" uid="uid://da1caoki23bae" path="res://assets/sky.png" id="3_26ede"]
-[ext_resource type="PackedScene" uid="uid://cw8lkgg6mh2ts" path="res://scenes/JuicyBarContainer.tscn" id="3_net7u"]
 [ext_resource type="PackedScene" uid="uid://dicf6v3h8mn3n" path="res://scenes/enemy.tscn" id="5_gw4ak"]
 [ext_resource type="PackedScene" uid="uid://x3fch4nq1l5u" path="res://scenes/player.tscn" id="6_k3xm0"]
 
@@ -37,26 +36,39 @@ transform = Transform3D(1, 0, 0, 0, -0.617077, 0.786903, 0, -0.786903, -0.617077
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
 environment = SubResource("Environment_k8qun")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="Enemies" type="Node3D" parent="."]
 
-[node name="JuicyBarContainer" parent="UI" instance=ExtResource("3_net7u")]
+[node name="Thomas" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 14.4997)
+
+[node name="Greg" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 14.4997)
+
+[node name="Henry" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 12.6782)
+
+[node name="Peter" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 4.67916)
+
+[node name="Noe" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, -4.44927)
+
+[node name="Noe2" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, -13.0389)
+
+[node name="Noe3" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6105, 1, -4.44927)
+
+[node name="Noe4" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.399, -4, 38.642)
+
+[node name="Noe5" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3856, -4, 38.642)
+
+[node name="Noe6" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20051, -4, 38.642)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_71f7v")
 
 [node name="BattlegroundMap" parent="NavigationRegion3D" instance=ExtResource("1_ujv6w")]
-
-[node name="Enemy" parent="." instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 14.4997)
-
-[node name="Enemy4" parent="." instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 14.4997)
-
-[node name="Enemy5" parent="." instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 12.6782)
-
-[node name="Enemy2" parent="." instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 4.67916)
-
-[node name="Enemy3" parent="." instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, -4.44927)
