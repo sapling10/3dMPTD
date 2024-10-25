@@ -33,7 +33,7 @@ func _physics_process(delta: float):
 	pitch = clamp(pitch, pitch_min, pitch_max)
 	cam_yaw.rotation_degrees.y = lerp(cam_yaw.rotation_degrees.y, yaw, yaw_acceleration * delta)
 	cam_pitch.rotation_degrees.x = lerp(cam_pitch.rotation_degrees.x, pitch, pitch_acceleration * delta)
-	
+	# pitch later for moving torso up and down
 	set_cam_rotation.emit(cam_yaw.rotation.y)
 	
 # TODO : reimplement fov tween

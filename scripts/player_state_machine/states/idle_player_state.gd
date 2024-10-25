@@ -3,7 +3,7 @@ extends State
 @export var walking_state: State
 @export var running_state: State
 @export var ground_jumping_state: State
-#@export var falling_state: State
+@export var falling_state: State
 
 func enter():
 	parent.velocity.z = 0
@@ -27,6 +27,6 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	var is_on_floor = parent.is_on_floor()
 	
-	#if not is_on_floor:
-		#return process_state_change(falling_state)
+	if not is_on_floor:
+		return process_state_change(falling_state)
 	return null

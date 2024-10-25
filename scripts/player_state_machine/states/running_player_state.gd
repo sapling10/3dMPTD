@@ -3,7 +3,7 @@ extends State
 @export var idle_state: State
 @export var walking_state: State
 @export var ground_jumping_state: State
-#@export var falling_state: State
+@export var falling_state: State
 
 @export var mesh_root: Node3D
 @export var running_speed: float = 7.0
@@ -29,7 +29,7 @@ func process_input(event: InputEvent) -> State:
 	return null
 	
 func process_physics(delta: float) -> State:
-	var is_on_floor = parent.is_on_floor()
+	var is_falling = !parent.is_on_floor()
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.cam_rotation)
 	# set player velocity
@@ -42,6 +42,6 @@ func process_physics(delta: float) -> State:
 	var target_rotation = atan2(parent.direction.x, parent.direction.z) - parent.rotation.y
 	mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, parent.rotation_speed * delta)
 	
-	#if not is_on_floor:
-		#return process_state_change(falling_state)
+	if is_falling:
+		return process_state_change(falling_state)
 	return null
