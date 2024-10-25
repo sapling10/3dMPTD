@@ -6,6 +6,7 @@
 script = ExtResource("1_weilk")
 id = 1
 movement_speed = 4.0
+animation_name = "Walking"
 acceleration = 6.0
 camera_fov = 75.0
 animation_speed = 1.8

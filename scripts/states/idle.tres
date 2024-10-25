@@ -6,6 +6,7 @@
 script = ExtResource("1_xo1r1")
 id = 0
 movement_speed = 0.0
+animation_name = "Idle"
 acceleration = 6.0
 camera_fov = 75.0
 animation_speed = 1.0

@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="MovementState" load_steps=2 format=3 uid="uid://bhifkuekf5jw8"]
+[gd_resource type="Resource" script_class="FallState" load_steps=2 format=3 uid="uid://d0tmqs1b2j6p6"]
 
-[ext_resource type="Script" path="res://scripts/states/resource_scripts/movement_state_resource.gd" id="1_t5cec"]
+[ext_resource type="Script" path="res://scripts/states/resource_scripts/fall_state_resource.gd" id="1_75f4u"]
 
 [resource]
-script = ExtResource("1_t5cec")
-id = 4
-movement_speed = 3.0
-acceleration = 6.0
+script = ExtResource("1_75f4u")
+animation_name = "FallingIdle"
+fall_gravity = 6.0
+terminal_velocity = 60.0
 camera_fov = 85.0
 animation_speed = 1.0
