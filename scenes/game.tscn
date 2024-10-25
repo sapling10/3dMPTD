@@ -26,7 +26,7 @@ agent_radius = 0.25
 script = ExtResource("1_jv1ih")
 
 [node name="Player" parent="." instance=ExtResource("6_k3xm0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.289)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.914963, 2.289)
 
 [node name="Lighting" type="Node" parent="."]
 

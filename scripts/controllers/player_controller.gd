@@ -1,49 +1,36 @@
 extends CharacterBody3D
 class_name Player
 
-signal set_movement_state(_movement_state: MovementState)
-signal set_movement_direction(_movement_direction: Vector3)
-signal pressed_jump(jump_state: JumpState)
-signal is_falling(fall_state: FallState)
+@onready var animation_player: AnimationPlayer = $Visuals/AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var player_state_machine: Node = $PlayerStateMachine
+@export var rotation_speed: float = 8
 
+var animation_player_state_machine
+# for walking the cameras direction
+var direction: Vector3 # current facing direction
+var cam_rotation: float = 0.0 # current camera rotation
 
-@export var movement_states: Dictionary
-@export var jump_states: Dictionary
-@export var fall_states: Dictionary
-
-@onready var ramp_fall_ray_cast: RayCast3D = $RampFallRayCast
-
-var is_jumping = false
-var movement_direction: Vector3
-
-func _input(event: InputEvent):
-	if event.is_action("movement"):
-		movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
-		movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
-		if is_on_floor():
-			is_jumping = false
-			if is_movement_ongoing():
-				if Input.is_action_pressed("sprint"):
-					set_movement_state.emit(movement_states["run"])
-				else:
-					set_movement_state.emit(movement_states["walk"])
-			else:
-				set_movement_state.emit(movement_states["idle"])
-			
-	elif event.is_action("jump") and is_on_floor():
-		is_jumping = true
-		pressed_jump.emit(jump_states["groundjump"])
+# should handle all jumping timers here
 
 func _ready():
-	set_movement_direction.emit(Vector3.BACK)
-	set_movement_state.emit(movement_states["idle"])
+	direction = Vector3.BACK
+	animation_player_state_machine = animation_tree["parameters/playback"]
+	player_state_machine.init(self)
 
-func _physics_process(delta: float):
-	if is_movement_ongoing():
-		set_movement_direction.emit(movement_direction)
+func _unhandled_input(event: InputEvent) -> void:
+	player_state_machine.process_input(event)
+
+func _physics_process(delta: float) -> void:
+	player_state_machine.process_physics(delta)
 	
-	if !is_on_floor() and not is_jumping:
-		is_falling.emit(fall_states["fall"])
+func _process(delta: float) -> void:
+	player_state_machine.process_frame(delta)
 
-func is_movement_ongoing() -> bool:
-	return abs(movement_direction.x) > 0 or abs(movement_direction.z) > 0
+# from States (Walking, Running)
+func _on_set_movement_direction(_movement_direction: Vector3):
+	direction = _movement_direction.rotated(Vector3.UP, cam_rotation)
+
+# from CameraController
+func _on_set_cam_rotation(_cam_rotation: float):
+	cam_rotation = _cam_rotation
