@@ -38,12 +38,12 @@ func process_physics(delta: float) -> State:
 	else:
 		parent.velocity.x = jump_running_speed * parent.direction.normalized().x
 		parent.velocity.z = jump_running_speed * parent.direction.normalized().z
-	parent.velocity = parent.velocity.lerp(parent.velocity, jump_acceleration * delta)
 	# set y vel based on term vel
 	if parent.velocity.y >= 0:
 		parent.velocity.y -= jump_gravity * delta
 	else:
 		return process_state_change(falling_state)
+	parent.velocity = parent.velocity.lerp(parent.velocity, jump_acceleration * delta)
 	parent.move_and_slide()
 	
 	# rotate mesh, free

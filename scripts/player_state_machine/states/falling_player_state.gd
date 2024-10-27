@@ -1,5 +1,7 @@
 extends State
 
+# TODO : weird bug when transitioning from jump->fall where velocity=0 and playing falls straight down
+
 @export var idle_state: State
 @export var walking_state: State
 @export var running_state: State
@@ -21,6 +23,7 @@ func enter() -> void:
 		falling_speed = falling_running_speed
 	else:
 		falling_speed = falling_walking_speed
+	#movement_direction = parent.direction
 
 func process_input(event: InputEvent) -> State:
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
@@ -33,12 +36,12 @@ func process_physics(delta: float) -> State:
 	# set player velocity, used ready func to get speed
 	parent.velocity.x = falling_speed * parent.direction.normalized().x
 	parent.velocity.z = falling_speed * parent.direction.normalized().z
-	parent.velocity = parent.velocity.lerp(parent.velocity, falling_acceleration * delta)
 	# set y vel based on term vel
 	if parent.velocity.y > terminal_velocity:
 		parent.velocity.y -= falling_gravity * delta
 	if parent.velocity.y < terminal_velocity:
 		parent.velocity.y = terminal_velocity
+	parent.velocity = parent.velocity.lerp(parent.velocity, falling_acceleration * delta)
 	parent.move_and_slide()
 	
 	# rotate mesh, free

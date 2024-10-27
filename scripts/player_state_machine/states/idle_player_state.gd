@@ -5,6 +5,8 @@ extends State
 @export var ground_jumping_state: State
 @export var falling_state: State
 
+var movement_direction: Vector3
+
 func enter():
 	parent.velocity.z = 0
 	
@@ -22,6 +24,7 @@ func process_input(event: InputEvent) -> State:
 		return process_state_change(ground_jumping_state)
 	if is_jumping:
 		print("just is jumping")
+	
 	return null
 
 func process_physics(delta: float) -> State:
