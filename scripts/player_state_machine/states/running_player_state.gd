@@ -32,6 +32,7 @@ func process_physics(delta: float) -> State:
 	var is_falling = !parent.is_on_floor()
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.cam_rotation)
+	print("   run: ", parent.direction, "[", movement_direction, "]")
 	# set player velocity
 	parent.velocity.x = running_speed * parent.direction.normalized().x
 	parent.velocity.z = running_speed * parent.direction.normalized().z

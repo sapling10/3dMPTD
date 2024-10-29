@@ -5,16 +5,18 @@ class_name Player
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var player_state_machine: Node = $PlayerStateMachine
 @export var rotation_speed: float = 8
+@onready var camera: CameraController = $Camera
 
 var animation_player_state_machine
 # for walking the cameras direction
 var direction: Vector3 # current facing direction
-var cam_rotation: float = 0.0 # current camera rotation
+var cam_rotation: float # current camera rotation
 
 # should handle all jumping timers here
 
 func _ready():
 	direction = Vector3.BACK
+	cam_rotation = camera.cam_rotation
 	animation_player_state_machine = animation_tree["parameters/playback"]
 	player_state_machine.init(self)
 

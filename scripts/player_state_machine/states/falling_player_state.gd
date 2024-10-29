@@ -23,16 +23,19 @@ func enter() -> void:
 		falling_speed = falling_running_speed
 	else:
 		falling_speed = falling_walking_speed
+	movement_direction = Vector3(0,0,0)
 	#movement_direction = parent.direction
 
 func process_input(event: InputEvent) -> State:
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
 	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
+	print("HERE: ", movement_direction.z, "/", parent.camera.cam_rotation)
 	return null
 	
 func process_physics(delta: float) -> State:
 	# set player direction
-	parent.direction = movement_direction.rotated(Vector3.UP, parent.cam_rotation)
+	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera.cam_rotation)
+	print("fall: ", parent.direction, "[", movement_direction, "]")
 	# set player velocity, used ready func to get speed
 	parent.velocity.x = falling_speed * parent.direction.normalized().x
 	parent.velocity.z = falling_speed * parent.direction.normalized().z

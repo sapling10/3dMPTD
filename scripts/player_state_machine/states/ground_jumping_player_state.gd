@@ -31,6 +31,7 @@ func process_physics(delta: float) -> State:
 	
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.cam_rotation)
+	print("jump: ", parent.direction, "[", movement_direction, "]")
 	# set player velocity
 	if not is_sprinting:
 		parent.velocity.x = jump_walking_speed * parent.direction.normalized().x
