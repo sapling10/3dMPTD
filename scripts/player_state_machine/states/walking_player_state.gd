@@ -11,6 +11,14 @@ extends State
 
 var movement_direction: Vector3
 
+func enter():
+	movement_direction = parent.prev_movement_direction
+	#print("\tSETTING IN WALKING - move_dir: ", movement_direction)
+
+func exit():
+	#print("\tFROM WALKING - prev_move now: ", movement_direction)
+	parent.prev_movement_direction = movement_direction
+
 func process_input(event: InputEvent) -> State:
 	var is_walking = Input.is_action_pressed("movement")
 	var is_running = Input.is_action_pressed("sprint")
@@ -25,13 +33,14 @@ func process_input(event: InputEvent) -> State:
 		
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
 	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
-	
+	#print("walking | movement_direction=", movement_direction)
 	return null
 	
 func process_physics(delta: float) -> State:
 	var is_falling = !parent.is_on_floor()
 	# set player direction
-	parent.direction = movement_direction.rotated(Vector3.UP, parent.cam_rotation)
+	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera_rotation)
+	#print("walking | parent.direction=", parent.direction)
 	# set player velocity
 	parent.velocity.x = walking_speed * parent.direction.normalized().x
 	parent.velocity.z = walking_speed * parent.direction.normalized().z
@@ -39,8 +48,7 @@ func process_physics(delta: float) -> State:
 	parent.move_and_slide()
 	
 	# rotate mesh
-	var target_rotation = atan2(parent.direction.x, parent.direction.z) - parent.rotation.y
-	mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, parent.rotation_speed * delta)
+	parent.set_mesh_rotation(delta)
 	
 	if is_falling:
 		return process_state_change(falling_state)

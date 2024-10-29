@@ -19,8 +19,6 @@ var pitch_acceleration: float = 15
 var pitch_max: float = 60
 var pitch_min: float = -80
 
-var cam_rotation: float # current camera rotation
-
 var tween: Tween
 
 func _ready():
@@ -37,8 +35,7 @@ func _physics_process(delta: float):
 	cam_pitch.rotation_degrees.x = lerp(cam_pitch.rotation_degrees.x, pitch, pitch_acceleration * delta)
 	# pitch later for moving torso up and down
 	set_cam_rotation.emit(cam_yaw.rotation.y)
-	cam_rotation = cam_yaw.rotation.y
-	
+
 # TODO : reimplement fov tween
 #func _on_set_movement_state(_movement_state: MovementState):
 #	if tween:

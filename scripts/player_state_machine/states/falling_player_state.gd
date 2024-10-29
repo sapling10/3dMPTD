@@ -23,19 +23,23 @@ func enter() -> void:
 		falling_speed = falling_running_speed
 	else:
 		falling_speed = falling_walking_speed
-	movement_direction = Vector3(0,0,0)
-	#movement_direction = parent.direction
+	movement_direction = parent.prev_movement_direction
+	#print("\tSETTING IN FALLING - move_dir: ", movement_direction)
+
+func exit():
+	#print("\tFROM FALLING - prev_move now: ", movement_direction)
+	parent.prev_movement_direction = movement_direction
 
 func process_input(event: InputEvent) -> State:
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
 	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
-	print("HERE: ", movement_direction.z, "/", parent.camera.cam_rotation)
+	#print("falling | movement_direction=", movement_direction)
 	return null
 	
 func process_physics(delta: float) -> State:
 	# set player direction
-	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera.cam_rotation)
-	print("fall: ", parent.direction, "[", movement_direction, "]")
+	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera_rotation)
+	#print("falling | parent.direction=", parent.direction)
 	# set player velocity, used ready func to get speed
 	parent.velocity.x = falling_speed * parent.direction.normalized().x
 	parent.velocity.z = falling_speed * parent.direction.normalized().z
@@ -49,8 +53,8 @@ func process_physics(delta: float) -> State:
 	
 	# rotate mesh, free
 	if movement_direction.length() > 0:
-		var target_rotation = atan2(parent.direction.x, parent.direction.z) - parent.rotation.y
-		mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, parent.rotation_speed * delta)
+		parent.set_mesh_rotation(delta)
+	
 	
 	var is_on_floor = parent.is_on_floor()
 	# all input is predetermined on landing
