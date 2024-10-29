@@ -1,17 +1,24 @@
 extends CharacterBody3D
 class_name Player
 
+signal set_health(_health: float)
+
 @onready var animation_player: AnimationPlayer = $Visuals/AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var player_state_machine: Node = $PlayerStateMachine
 @onready var mesh_root: Node3D = $Visuals
+
+@export var health: float = 100
 @export var rotation_speed: float = 8
+
+# TODO : bug, when the camera is pushed against a wall the player moves like resident evil
 
 var animation_player_state_machine
 # for walking the cameras direction
 var direction: Vector3 # current facing direction
 var prev_movement_direction: Vector3 # previous movement input
 var camera_rotation: float
+
 # should handle all jumping timers here
 
 func _ready():
@@ -35,3 +42,22 @@ func set_mesh_rotation(delta: float):
 	# rotate mesh
 	var target_rotation = atan2(direction.x, direction.z) - rotation.y
 	mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, rotation_speed * delta)
+
+# testing
+func _input(event: InputEvent):
+	if event.is_action_pressed("DEBUG_damage_player"):
+		health = health - 10
+		if (health < 0): health = 0
+		set_health.emit(health)
+	if event.is_action_pressed("DEBUG_heal_player"):
+		health = health + 10
+		if (health > 100): health = 100
+		set_health.emit(health)
+	if event.is_action_pressed("DEBUG_heavy_damage_player"):
+		health = health - 25
+		if (health < 0): health = 0
+		set_health.emit(health)
+	if event.is_action_pressed("DEBUG_heavy_heal_player"):
+		health = health + 25
+		if (health > 100): health = 100
+		set_health.emit(health)

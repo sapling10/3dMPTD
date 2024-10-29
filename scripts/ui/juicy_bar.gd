@@ -34,3 +34,6 @@ func run_juicy_tween(bar: ProgressBar, value: float, length: float, delay: float
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func _on_player_set_health(_health: float) -> void:
+	change_current_val(_health)

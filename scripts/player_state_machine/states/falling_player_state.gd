@@ -1,7 +1,5 @@
 extends State
 
-# TODO : weird bug when transitioning from jump->fall where velocity=0 and playing falls straight down
-
 @export var idle_state: State
 @export var walking_state: State
 @export var running_state: State

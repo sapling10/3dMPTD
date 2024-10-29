@@ -31,11 +31,3 @@ func _on_navigation_agent_3d_target_reached() -> void:
 func _on_navigation_agent_3d_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = velocity.move_toward(safe_velocity, 0.25)
 	move_and_slide()
-
-
-func _on_player_detection_area_body_entered(body: Node3D) -> void:
-	pass
-
-
-func _on_player_detection_area_body_exited(body: Node3D) -> void:
-	pass

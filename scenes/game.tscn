@@ -26,7 +26,7 @@ agent_radius = 0.25
 script = ExtResource("1_jv1ih")
 
 [node name="Player" parent="." instance=ExtResource("6_k3xm0")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.91496, -0.0914447)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.915, -0.091)
 
 [node name="Lighting" type="Node" parent="."]
 
@@ -41,32 +41,8 @@ environment = SubResource("Environment_k8qun")
 [node name="Thomas" parent="Enemies" instance=ExtResource("5_gw4ak")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 14.4997)
 
-[node name="Greg" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 14.4997)
-
-[node name="Henry" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.1673, 1, 12.6782)
-
-[node name="Peter" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 4.67916)
-
-[node name="Noe" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, -4.44927)
-
-[node name="Noe2" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, -13.0389)
-
-[node name="Noe3" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.6105, 1, -4.44927)
-
-[node name="Noe4" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.399, -4, 38.642)
-
-[node name="Noe5" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3856, -4, 38.642)
-
-[node name="Noe6" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.20051, -4, 38.642)
+[node name="Gary" parent="Enemies" instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4046, 1, -13.999)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_71f7v")
