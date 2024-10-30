@@ -21,14 +21,12 @@ func enter():
 	parent.velocity.y = 2 * jump_height / jump_peak_time
 	jump_gravity = parent.velocity.y / jump_peak_time
 	movement_direction = parent.prev_movement_direction
-	#print("\tSETTING IN JUMPING - move_dir: ", movement_direction)
 
 func exit():
-	#print("\tFROM JUMPING - prev_move now: ", movement_direction)
 	parent.prev_movement_direction = movement_direction
+	parent.jump_available = false
 
 func process_input(event: InputEvent) -> State:
-	#print("jumping | movement_direction=", movement_direction)
 	return null
 	
 func process_physics(delta: float) -> State:
@@ -39,7 +37,6 @@ func process_physics(delta: float) -> State:
 	
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera_rotation)
-	#print("jumping | parent.direction=", parent.direction)
 	# set player velocity
 	if not is_sprinting:
 		parent.velocity.x = jump_walking_speed * parent.direction.normalized().x

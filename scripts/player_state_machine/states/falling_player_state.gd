@@ -26,13 +26,26 @@ func enter() -> void:
 
 func exit():
 	#print("\tFROM FALLING - prev_move now: ", movement_direction)
+	parent.jump_available = true
+	parent.coyote_timer.stop()
 	parent.prev_movement_direction = movement_direction
 
 func process_input(event: InputEvent) -> State:
 	#print("falling | movement_direction=", movement_direction)
+	var is_jumping = Input.is_action_pressed("jump")
+	
+	if is_jumping and parent.jump_available:
+		parent.jump_available = false
+		return process_state_change(ground_jumping_state)
+	
 	return null
 	
 func process_physics(delta: float) -> State:
+	if parent.jump_available:
+		if parent.coyote_timer.is_stopped():
+			print("timer started")
+			parent.coyote_timer.start(parent.coyote_time)
+	
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
 	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
 	
@@ -66,7 +79,7 @@ func process_physics(delta: float) -> State:
 			return process_state_change(walking_state)
 		if is_walking and is_running:
 			return process_state_change(running_state)
-		if is_jumping and parent.is_on_floor():
+		if is_jumping:
 			return process_state_change(ground_jumping_state)
 		if not is_walking:
 			return process_state_change(idle_state)

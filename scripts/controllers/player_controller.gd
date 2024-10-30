@@ -11,14 +11,16 @@ signal set_health(_health: float)
 @export var health: float = 100
 @export var rotation_speed: float = 8
 
-# TODO : bug, when the camera is pushed against a wall the player moves like resident evil
+var coyote_time: float = 0.25
+@onready var coyote_timer: Timer = $CoyoteTimer
+
 
 var animation_player_state_machine
 var direction: Vector3 # current facing direction
 var prev_movement_direction: Vector3 # previous movement input
 var camera_rotation: float
+var jump_available: bool = true
 
-# should handle all jumping timers here
 
 func _ready():
 	direction = Vector3.BACK
@@ -41,6 +43,9 @@ func set_mesh_rotation(delta: float):
 	# rotate mesh
 	var target_rotation = atan2(direction.x, direction.z) - rotation.y
 	mesh_root.rotation.y = lerp_angle(mesh_root.rotation.y, target_rotation, rotation_speed * delta)
+
+func coyote_timeout():
+	jump_available = false
 
 # testing
 func _input(event: InputEvent):
