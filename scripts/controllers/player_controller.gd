@@ -5,7 +5,7 @@ signal set_health(_health: float)
 
 @onready var animation_player: AnimationPlayer = $Visuals/AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var player_state_machine: Node = $PlayerStateMachine
+@onready var player_state_machine: Node = $MovementStateMachine
 @onready var mesh_root: Node3D = $Visuals
 
 @export var health: float = 100
@@ -14,7 +14,6 @@ signal set_health(_health: float)
 # TODO : bug, when the camera is pushed against a wall the player moves like resident evil
 
 var animation_player_state_machine
-# for walking the cameras direction
 var direction: Vector3 # current facing direction
 var prev_movement_direction: Vector3 # previous movement input
 var camera_rotation: float

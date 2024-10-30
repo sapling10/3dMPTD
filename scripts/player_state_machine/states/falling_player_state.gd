@@ -29,12 +29,13 @@ func exit():
 	parent.prev_movement_direction = movement_direction
 
 func process_input(event: InputEvent) -> State:
-	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
-	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
 	#print("falling | movement_direction=", movement_direction)
 	return null
 	
 func process_physics(delta: float) -> State:
+	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
+	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
+	
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera_rotation)
 	#print("falling | parent.direction=", parent.direction)

@@ -38,13 +38,13 @@ environment = SubResource("Environment_k8qun")
 
 [node name="Enemies" type="Node3D" parent="."]
 
-[node name="Thomas" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8137, 1, 14.4997)
-
-[node name="Gary" parent="Enemies" instance=ExtResource("5_gw4ak")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.4046, 1, -13.999)
-
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_71f7v")
 
 [node name="BattlegroundMap" parent="NavigationRegion3D" instance=ExtResource("1_ujv6w")]
+
+[node name="Enemy2" parent="." instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 14)
+
+[node name="Enemy3" parent="." instance=ExtResource("5_gw4ak")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, -39)

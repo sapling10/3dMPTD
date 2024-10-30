@@ -1,7 +1,5 @@
 extends Node3D
 
-signal set_health(_health: float)
-
 @onready var player: Player = $Player
 
 # only currently responsible for enemies

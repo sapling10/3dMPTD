@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dicf6v3h8mn3n"]
+[gd_scene load_steps=7 format=3 uid="uid://dicf6v3h8mn3n"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_ca4q0"]
+[ext_resource type="Script" path="res://scripts/controllers/enemy_controller.gd" id="2_onqgs"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y6j7r"]
 albedo_color = Color(1, 0, 0, 1)
@@ -28,10 +29,13 @@ shape = SubResource("CapsuleShape3D_lrchk")
 target_desired_distance = 1.5
 avoidance_enabled = true
 
+[node name="EnemyController" type="Node" parent="."]
+script = ExtResource("2_onqgs")
+
 [node name="PlayerDetectionArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_afygm")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]

@@ -31,13 +31,16 @@ func process_input(event: InputEvent) -> State:
 	if not is_walking:
 		return process_state_change(idle_state)
 		
-	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
-	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
-	#print("walking | movement_direction=", movement_direction)
+	
 	return null
 	
 func process_physics(delta: float) -> State:
 	var is_falling = !parent.is_on_floor()
+	
+	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
+	movement_direction.z = Input.get_action_strength("forward") - Input.get_action_strength("backward")
+	
+	#print("walking | movement_direction=", movement_direction)
 	# set player direction
 	parent.direction = movement_direction.rotated(Vector3.UP, parent.camera_rotation)
 	#print("walking | parent.direction=", parent.direction)
