@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dicf6v3h8mn3n"]
+[gd_scene load_steps=9 format=3 uid="uid://dicf6v3h8mn3n"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_ca4q0"]
 [ext_resource type="Script" path="res://scripts/controllers/enemy_controller.gd" id="2_onqgs"]
@@ -13,6 +13,13 @@ material = SubResource("StandardMaterial3D_y6j7r")
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_afygm"]
 radius = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_22m2o"]
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_0tf01"]
+material = SubResource("StandardMaterial3D_22m2o")
+size = Vector2(1.5, 0.15)
 
 [node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 script = ExtResource("1_ca4q0")
@@ -37,6 +44,12 @@ script = ExtResource("2_onqgs")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_afygm")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.40877, 0)
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_0tf01")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

@@ -1,5 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bj1bu440d861s"]
+[gd_scene load_steps=3 format=3 uid="uid://bj1bu440d861s"]
 
 [ext_resource type="PackedScene" uid="uid://bf8g41byxmdqw" path="res://assets/rifle.glb" id="1_cbn0e"]
+[ext_resource type="Script" path="res://scripts/rifle.gd" id="2_ix0lv"]
 
 [node name="rifle" instance=ExtResource("1_cbn0e")]
+script = ExtResource("2_ix0lv")
+
+[node name="RayCast3D" type="RayCast3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0901016, 0.174148)
+target_position = Vector3(0, 0, 0.5)

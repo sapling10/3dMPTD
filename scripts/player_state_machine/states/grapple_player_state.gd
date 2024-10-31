@@ -4,7 +4,7 @@ extends State
 @export var running_state: State
 @export var ground_jumping_state: State
 @export var falling_state: State
-@onready var grapple_cast: RayCast3D = $"../../Camera/CamYaw/CamPitch/SpringArm3D/Camera3D/GrappleCast"
+@onready var grapple_cast: RayCast3D = $"../../Camera/CamYaw/CamPitch/SpringArm3D/Camera3D/AimCast"
 
 
 @export var mesh_root: Node3D

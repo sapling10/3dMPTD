@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://ibvcfsidx558"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_p7gpv"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xb3q0"]
+radius = 0.04
+height = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ege4"]
+radius = 0.04
+height = 0.2
+
+[node name="Projectile" type="Node3D"]
+script = ExtResource("1_p7gpv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_xb3q0")
+skeleton = NodePath("../RigidBody3D/CollisionShape3D")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("CapsuleShape3D_0ege4")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08144, 3.55986e-09)
+target_position = Vector3(0, 0.2, 0)
+
+[connection signal="body_entered" from="RigidBody3D" to="." method="_on_rigid_body_3d_body_entered"]

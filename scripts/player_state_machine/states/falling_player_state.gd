@@ -43,7 +43,6 @@ func process_input(event: InputEvent) -> State:
 func process_physics(delta: float) -> State:
 	if parent.jump_available:
 		if parent.coyote_timer.is_stopped():
-			print("timer started")
 			parent.coyote_timer.start(parent.coyote_time)
 	
 	movement_direction.x = Input.get_action_strength("left") - Input.get_action_strength("right")
